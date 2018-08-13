@@ -2295,7 +2295,9 @@ export class ProjectView
                 {sandbox ? undefined : <projects.ChooseHwDialog parent={this} ref={this.handleChooseHwDialogRef} />}
                 {sandbox || !sharingEnabled ? undefined : <share.ShareEditor parent={this} ref={this.handleShareEditorRef} />}
                 {selectLanguage ? <lang.LanguagePicker parent={this} ref={this.handleLanguagePickerRef} /> : undefined}
-                {sandbox ? <container.SandboxFooter parent={this} /> : undefined}
+
+                {sandbox ? <container.SandboxFooter parent={this} projectName={pkg.mainEditorPkg().header.name} time={pkg.mainEditorPkg().header.recentUse}/> : undefined}
+
                 {hideMenuBar ? <div id="editorlogo"><a className="poweredbylogo"></a></div> : undefined}
                 {lightbox ? <sui.Dimmer isOpen={true} active={lightbox} portalClassName={'tutorial'} className={'ui modal'}
                     shouldFocusAfterRender={false} closable={true} onClose={this.hideLightbox} /> : undefined}

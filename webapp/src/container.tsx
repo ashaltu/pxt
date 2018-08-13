@@ -521,13 +521,16 @@ export class SideDocs extends data.Component<SideDocsProps, SideDocsState> {
 }
 
 export interface SandboxFooterProps extends ISettingsProps {
+    projectName?: String;
+    time?: number;
 }
 
-export class SandboxFooter extends data.PureComponent<SandboxFooterProps, {}> {
+export class SandboxFooter extends data.PureComponent<SandboxFooterProps,{}> {
 
     constructor(props: SandboxFooterProps) {
         super(props);
         this.state = {
+            
         }
 
         this.compile = this.compile.bind(this);
@@ -545,10 +548,10 @@ export class SandboxFooter extends data.PureComponent<SandboxFooterProps, {}> {
 
         /* tslint:disable:react-a11y-anchors */
         return <div className="ui horizontal small divided link list sandboxfooter">
-            {targetTheme.organizationUrl && targetTheme.organization ? <a className="item" target="_blank" rel="noopener noreferrer" href={targetTheme.organizationUrl}>{targetTheme.organization}</a> : undefined}
-            <a target="_blank" className="item" href={targetTheme.termsOfUseUrl} rel="noopener noreferrer">{lf("Terms of Use")}</a>
-            <a target="_blank" className="item" href={targetTheme.privacyUrl} rel="noopener noreferrer">{lf("Privacy")}</a>
-            <span className="item"><a role="button" className="ui thin portrait only" title={compileTooltip} onClick={this.compile}><sui.Icon icon={`icon ${pxt.appTarget.appTheme.downloadIcon || 'download'}`} />{pxt.appTarget.appTheme.useUploadMessage ? lf("Upload") : lf("Download")}</a></span>
+            <span className="item"><a role="button" className="ui thin blue portrait only" title={compileTooltip} onClick={this.compile}><sui.Icon icon={`icon ${pxt.appTarget.appTheme.downloadIcon || 'download'}`} />{pxt.appTarget.appTheme.useUploadMessage ? lf("Upload") : lf("Download")}</a></span>
+            <a target="_blank" className="item" rel="noopener noreferrer">
+            {this.props.projectName ? this.props.projectName : undefined} 
+            {this.props.time? " ("+this.props.time+")" : undefined}</a>
         </div>;
         /* tslint:enable:react-a11y-anchors */
     }
