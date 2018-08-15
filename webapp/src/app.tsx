@@ -2206,6 +2206,7 @@ export class ProjectView
         const showSideDoc = sideDocs && this.state.sideDocsLoadUrl && !this.state.sideDocsCollapsed;
         const shouldHideEditorFloats = (this.state.hideEditorFloats || this.state.collapseEditorTools) && (!inTutorial || isHeadless);
         const shouldCollapseEditorTools = this.state.collapseEditorTools && (!inTutorial || isHeadless);
+        const sandboxPkg = pkg.mainEditorPkg().header;
 
         const isApp = cmds.isNativeHost() || pxt.winrt.isWinRT() || electron.isElectron;
 
@@ -2296,7 +2297,7 @@ export class ProjectView
                 {sandbox || !sharingEnabled ? undefined : <share.ShareEditor parent={this} ref={this.handleShareEditorRef} />}
                 {selectLanguage ? <lang.LanguagePicker parent={this} ref={this.handleLanguagePickerRef} /> : undefined}
 
-                {sandbox ? <container.SandboxFooter parent={this} projectName={pkg.mainEditorPkg().header.name} time={pkg.mainEditorPkg().header.recentUse}/> : undefined}
+                {sandbox ? <container.SandboxFooter parent={this} projectName={sandboxPkg ? sandboxPkg.name : undefined} time={sandboxPkg ? sandboxPkg.recentUse : undefined} />: undefined}
 
                 {hideMenuBar ? <div id="editorlogo"><a className="poweredbylogo"></a></div> : undefined}
                 {lightbox ? <sui.Dimmer isOpen={true} active={lightbox} portalClassName={'tutorial'} className={'ui modal'}

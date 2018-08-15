@@ -530,19 +530,19 @@ export class SandboxFooter extends data.PureComponent<SandboxFooterProps,{}> {
     constructor(props: SandboxFooterProps) {
         super(props);
         this.state = {
-            
         }
-
         this.compile = this.compile.bind(this);
     }
-
+    
     compile() {
         pxt.tickEvent("sandboxfooter.compile", undefined, { interactiveConsent: true });
         this.props.parent.compile();
     }
-
+    
     renderCore() {
         const targetTheme = pxt.appTarget.appTheme;
+        let name = this.props.projectName ? this.props.projectName : undefined;
+        let time = this.props.time ? " ("+pxt.Util.timeSince(this.props.time)+")" : undefined;
 
         const compileTooltip = lf("Download your code to the {0}", targetTheme.boardName);
 
@@ -550,8 +550,10 @@ export class SandboxFooter extends data.PureComponent<SandboxFooterProps,{}> {
         return <div className="ui horizontal small divided link list sandboxfooter">
             <span className="item"><a role="button" className="ui thin blue portrait only" title={compileTooltip} onClick={this.compile}><sui.Icon icon={`icon ${pxt.appTarget.appTheme.downloadIcon || 'download'}`} />{pxt.appTarget.appTheme.useUploadMessage ? lf("Upload") : lf("Download")}</a></span>
             <a target="_blank" className="item" rel="noopener noreferrer">
-            {this.props.projectName ? this.props.projectName : undefined} 
-            {this.props.time? " ("+this.props.time+")" : undefined}</a>
+                <div className="meta">
+                    {name} <span key="date" className="date">{time}</span>
+                </div>
+            </a>
         </div>;
         /* tslint:enable:react-a11y-anchors */
     }
