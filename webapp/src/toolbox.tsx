@@ -236,7 +236,8 @@ export class Toolbox extends data.Component<ToolboxProps, ToolboxState> {
     componentDidUpdate(prevProps: ToolboxProps, prevState: ToolboxState) {
         if (prevState.visible != this.state.visible
             || prevState.loading != this.state.loading
-            || prevState.showAdvanced != this.state.showAdvanced) {
+            || prevState.showAdvanced != this.state.showAdvanced
+            || this.state.expandedItem != prevState.expandedItem) {
             this.props.parent.resize();
         }
         if (this.state.hasSearch && this.state.searchBlocks != prevState.searchBlocks) {
@@ -843,7 +844,7 @@ export class ToolboxStyle extends data.Component<ToolboxStyleProps, {}> {
         // and assosiate them with a specific category
         return <style>
             {categories.filter(c => !!c.color).map(category =>
-                `span.docs.inlineblock.${category.nameid} {
+                `span.docs.inlineblock.${category.nameid.toLowerCase()} {
                     background-color: ${category.color};
                     border-color: ${pxt.toolbox.fadeColor(category.color, 0.1, false)};
                 }`
